@@ -9,15 +9,20 @@
         html { scroll-behavior: smooth; scroll-padding-top: 100px; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif; line-height: 1.6; color: #e0e0e0; background: #000; }
         .container { width: 100%; background: #000; }
-        header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 3rem 2rem; text-align: center; }
-        header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        header p { font-size: 1.2rem; opacity: 0.9; }
-        .profile-pic { width: 150px; height: 150px; border-radius: 50%; border: 4px solid #667eea; margin-bottom: 1rem; object-fit: cover; }
-        .about-photo { width: 200px; height: 200px; border-radius: 8px; float: left; margin: 0 2rem 1rem 0; object-fit: cover; border: 3px solid #667eea; }
-        nav { background: #0a0a0a; padding: 1.5rem 2rem; display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        nav a { color: #e0e0e0; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 4px; }
+        header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 2rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .header-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .header-left { display: flex; align-items: center; gap: 1.5rem; }
+        .profile-pic { width: 60px; height: 60px; border-radius: 50%; border: 3px solid #667eea; object-fit: cover; }
+        .header-text h1 { font-size: 1.5rem; margin: 0; }
+        .header-text p { font-size: 0.9rem; opacity: 0.9; margin: 0; }
+        nav { display: flex; gap: 1rem; overflow-x: auto; scrollbar-width: thin; scrollbar-color: #667eea #1a1a2e; padding: 0.5rem 0; }
+        nav::-webkit-scrollbar { height: 6px; }
+        nav::-webkit-scrollbar-track { background: #1a1a2e; }
+        nav::-webkit-scrollbar-thumb { background: #667eea; border-radius: 3px; }
+        nav a { color: #e0e0e0; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 4px; white-space: nowrap; }
         nav a:hover { color: #667eea; background: rgba(102, 126, 234, 0.1); }
-        section { padding: 2rem; border-bottom: 1px solid #222; max-width: 1200px; margin: 0 auto; scroll-margin-top: 100px; }
+        .about-photo { width: 200px; height: 200px; border-radius: 8px; float: left; margin: 0 2rem 1rem 0; object-fit: cover; border: 3px solid #667eea; }
+        section { padding: 2rem; border-bottom: 1px solid #222; max-width: 1200px; margin: 0 auto; scroll-margin-top: 80px; }
         section:last-child { border-bottom: none; }
         h2 { color: #fff; margin-bottom: 1rem; font-size: 1.8rem; border-left: 4px solid #667eea; padding-left: 1rem; }
         .skills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
@@ -34,6 +39,12 @@
         .experience-item, .cert-item, .award-item { background: #111; padding: 1.5rem; margin-bottom: 1rem; border-radius: 8px; border-left: 4px solid #667eea; }
         .experience-item h3, .cert-item h3, .award-item h3 { color: #fff; margin-bottom: 0.5rem; }
         .experience-item .date, .cert-item .date, .award-item .date { color: #888; font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .timeline { padding: 2rem 0; }
+        .timeline-item { display: grid; grid-template-columns: 200px 1fr; gap: 2rem; padding: 1.5rem 0; border-bottom: 1px solid #333; }
+        .timeline-item:last-child { border-bottom: none; }
+        .timeline-item .date { color: #667eea; font-size: 0.9rem; font-weight: 600; }
+        .timeline-item .content h3 { color: #fff; font-size: 1.2rem; margin-bottom: 0.3rem; }
+        .timeline-item .content .company { color: #888; font-size: 0.95rem; }
         .accomplishments-list { list-style: none; }
         .accomplishments-list li { background: #111; padding: 1rem 1.5rem; margin-bottom: 0.8rem; border-radius: 8px; border-left: 4px solid #764ba2; position: relative; padding-left: 2.5rem; }
         .accomplishments-list li:before { content: "★"; position: absolute; left: 1rem; color: #764ba2; font-weight: bold; font-size: 1.2rem; }
@@ -42,122 +53,149 @@
         .cert-item:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3); }
         .cert-item h3 { font-size: 1.1rem; }
         .cert-item .date { color: #667eea; font-weight: 500; }
-        @media (max-width: 768px) { header h1 { font-size: 2rem; } nav { gap: 1rem; padding: 1rem; } nav a { font-size: 0.95rem; padding: 0.4rem 0.8rem; } section { padding: 1.5rem; } .skills-grid { grid-template-columns: 1fr; gap: 1rem; } .about-photo { float: none; margin: 0 auto 1rem; display: block; } }
+        @media (max-width: 968px) { 
+            .header-content { flex-direction: column; align-items: flex-start; }
+            nav { width: 100%; }
+        }
+        @media (max-width: 768px) { 
+            .header-text h1 { font-size: 1.2rem; }
+            .header-text p { font-size: 0.8rem; }
+            section { padding: 1.5rem; } 
+            .skills-grid { grid-template-columns: 1fr; gap: 1rem; } 
+            .about-photo { float: none; margin: 0 auto 1rem; display: block; }
+            .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <img src="Vijay-Pic-2025.JPG" alt="Vijay Koteswar" class="profile-pic">
-            <h1>Vijay Koteswar</h1>
-            <p>Director & Technology Delivery Leader</p>
+            <div class="header-content">
+                <div class="header-left">
+                    <img src="Vijay-Pic-2025.JPG" alt="Vijay Koteswar" class="profile-pic">
+                    <div class="header-text">
+                        <h1>Vijay Koteswar</h1>
+                        <p>Director & Technology Delivery Leader</p>
+                    </div>
+                </div>
+                <nav>
+                    <a href="#about">About Me</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#accomplishments">Accomplishments</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#certifications">Certifications</a>
+                    <a href="#education">Education</a>
+                    <a href="#awards">Awards</a>
+                    <a href="#domain">Domain</a>
+                </nav>
+            </div>
         </header>
-        
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About Me</a>
-            <a href="#projects">Projects</a>
-            <a href="#experience">Experience</a>
-            <a href="#skills">Skill Set</a>
-            <a href="#domain">Domain</a>
-            <a href="#accomplishments">Accomplishments</a>
-            <a href="#certifications">Certifications</a>
-            <a href="#education">Education</a>
-            <a href="#awards">Awards</a>
-        </nav>
-        
-        <section id="home">
-            <h2>Welcome</h2>
-            <p>Vijay Kumar Koteswar is a Director in Technology Delivery at Epsilon, based in Bengaluru, with over 20+ years of experience leading large-scale technology programs for strategic customers. He brings strong delivery leadership with a deep focus on data, analytics, and AI enablement, helping organizations translate business priorities into scalable technology solutions and measurable outcomes.</p>
-        </section>
         
         <section id="about">
             <h2>About Me</h2>
             <img src="Vijay-Pic-2025.JPG" alt="Vijay Koteswar" class="about-photo">
-            <p>In my role, I lead end-to-end technology delivery across complex, multi-stream programs spanning data engineering, cloud migrations, analytics platforms, and AI-enabled solutions. I am accountable for delivery governance, risk management, and driving predictable outcomes across build, integration, and run phases. My recent focus includes leading large-scale data and platform migrations from on-premises environments to cloud ecosystems on AWS and Azure.</p>
+            <p>Vijay Kumar Koteswar is a Director in Technology Delivery at Epsilon, based in Bengaluru, with over 20+ years of experience leading large-scale technology programs for strategic customers. He brings strong delivery leadership with a deep focus on data, analytics, and AI enablement, helping organizations translate business priorities into scalable technology solutions and measurable outcomes.</p>
+            <p style="margin-top: 1rem;">In my role, I lead end-to-end technology delivery across complex, multi-stream programs spanning data engineering, cloud migrations, analytics platforms, and AI-enabled solutions. I am accountable for delivery governance, risk management, and driving predictable outcomes across build, integration, and run phases. My recent focus includes leading large-scale data and platform migrations from on-premises environments to cloud ecosystems on AWS and Azure.</p>
             <p style="margin-top: 1rem;">I work closely with product, architecture, and engineering teams to ensure delivery plans are technically sound, operationally scalable, and aligned with business commitments, while continuously improving delivery maturity, quality, and speed.</p>
             <p style="margin-top: 1rem;">At Epsilon, I have played a key role in strengthening technology delivery capabilities by helping establish the Experience Center, designed to support learning and development through hands-on, platform-led training environments. In parallel, I have supported pre-sales efforts by leading the design and development of multiple demo sites and driving integrations with third-party platforms such as LoyLogic and Medallia.</p>
             <p style="margin-top: 1rem;">Prior to Epsilon, I held senior delivery and technology leadership roles at organizations such as LTIMindtree, serving as Technical Manager, Program Manager, Delivery Manager, and Delivery Director. I hold a Bachelor's degree in Computer Science and have pursued leadership development at IIM-Indore, focused on Strategy and Leadership.</p>
         </section>
         
-        <section id="projects">
-            <h2>Projects</h2>
-            <div class="project">
-                <h3>F1toF12 Projects</h3>
-                <p>A collection of innovative software solutions focusing on automation and productivity enhancement. Building tools that streamline workflows and improve efficiency.</p>
-            </div>
-            <div class="project">
-                <h3>Business Development Platform</h3>
-                <p>Developing recruitment and business development solutions that connect talent with opportunities. Leveraging technology to optimize the hiring process.</p>
-            </div>
-        </section>
-        
         <section id="experience">
-            <h2>Experience</h2>
-            <div class="experience-item">
-                <h3>Director</h3>
-                <div class="date">April 2025 - Current</div>
-                <p>Epsilon, Bengaluru, India</p>
-            </div>
-            <div class="experience-item">
-                <h3>Consultant</h3>
-                <div class="date">January 2025 - March 2025</div>
-                <p>Alfahive Pvt Ltd, Bengaluru, India</p>
-            </div>
-            <div class="experience-item">
-                <h3>Senior Director</h3>
-                <div class="date">July 2023 - November 2024</div>
-                <p>WinWire Technologies, Bengaluru, India</p>
-            </div>
-            <div class="experience-item">
-                <h3>Senior Director – Project Management</h3>
-                <div class="date">September 2019 - June 2023</div>
-                <p>LTIMindtree Ltd., Bengaluru, India</p>
-            </div>
-            <div class="experience-item">
-                <h3>Delivery Manager</h3>
-                <div class="date">November 2017 - August 2019</div>
-                <p>Mindtree Ltd., Sydney</p>
-            </div>
-            <div class="experience-item">
-                <h3>Senior Project Manager</h3>
-                <div class="date">May 2015 - October 2017</div>
-                <p>Mindtree Ltd., Bengaluru, India</p>
-            </div>
-            <div class="experience-item">
-                <h3>Technical Manager</h3>
-                <div class="date">October 2013 - December 2015</div>
-                <p>Mindtree Ltd., Bengaluru, India</p>
-            </div>
-            <div class="experience-item">
-                <h3>Technical Lead</h3>
-                <div class="date">January 2008 - June 2013</div>
-                <p>Mindtree Ltd., Bengaluru, India</p>
-            </div>
-            <div class="experience-item">
-                <h3>Senior Software Engineer</h3>
-                <div class="date">June 2006 - October 2007</div>
-                <p>Wipro Technologies, Hyderabad, India</p>
-            </div>
-            <div class="experience-item">
-                <h3>Technical Analyst</h3>
-                <div class="date">October 2005 - May 2006</div>
-                <p>IBM, Bengaluru, India</p>
-            </div>
-            <div class="experience-item">
-                <h3>Technical Analyst</h3>
-                <div class="date">April 2004 - September 2005</div>
-                <p>HTMT, Bengaluru, India</p>
-            </div>
-            <div class="experience-item">
-                <h3>Software Developer</h3>
-                <div class="date">July 2003 - April 2004</div>
-                <p>ECI, Hyderabad, India</p>
-            </div>
-            <div class="experience-item">
-                <h3>Programmer</h3>
-                <div class="date">January 2000 - July 2003</div>
-                <p>Image Infosys, Hyderabad, India</p>
+            <h2>Career Progression</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="date">April 2025 - Current</div>
+                    <div class="content">
+                        <h3>Director - Technology Delivery</h3>
+                        <div class="company">Epsilon, Bengaluru, India</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">January 2025 - March 2025</div>
+                    <div class="content">
+                        <h3>Consultant</h3>
+                        <div class="company">Alfahive Pvt Ltd, Bengaluru, India</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">July 2023 - November 2024</div>
+                    <div class="content">
+                        <h3>Senior Director</h3>
+                        <div class="company">WinWire Technologies, Bengaluru, India</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">September 2019 - June 2023</div>
+                    <div class="content">
+                        <h3>Senior Director - Project Management</h3>
+                        <div class="company">LTIMindtree Ltd., Bengaluru, India</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">November 2017 - August 2019</div>
+                    <div class="content">
+                        <h3>Delivery Manager</h3>
+                        <div class="company">Mindtree Ltd., Sydney, Australia</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">May 2015 - October 2017</div>
+                    <div class="content">
+                        <h3>Senior Project Manager</h3>
+                        <div class="company">Mindtree Ltd., Bengaluru, India</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">October 2013 - December 2015</div>
+                    <div class="content">
+                        <h3>Technical Manager</h3>
+                        <div class="company">Mindtree Ltd., Bengaluru, India</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">January 2008 - June 2013</div>
+                    <div class="content">
+                        <h3>Technical Lead</h3>
+                        <div class="company">Mindtree Ltd., Bengaluru, India</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">June 2006 - October 2007</div>
+                    <div class="content">
+                        <h3>Senior Software Engineer</h3>
+                        <div class="company">Wipro Technologies, Hyderabad, India</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">October 2005 - May 2006</div>
+                    <div class="content">
+                        <h3>Technical Analyst</h3>
+                        <div class="company">IBM, Bengaluru, India</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">April 2004 - September 2005</div>
+                    <div class="content">
+                        <h3>Technical Analyst</h3>
+                        <div class="company">HTMT, Bengaluru, India</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">July 2003 - April 2004</div>
+                    <div class="content">
+                        <h3>Software Developer</h3>
+                        <div class="company">ECI, Hyderabad, India</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">January 2000 - July 2003</div>
+                    <div class="content">
+                        <h3>Programmer</h3>
+                        <div class="company">Image Infosys, Hyderabad, India</div>
+                    </div>
+                </div>
             </div>
         </section>
         
@@ -265,18 +303,6 @@
             </div>
         </section>
         
-        <section id="domain">
-            <h2>Domain Experience</h2>
-            <div class="skills">
-                <span class="skill">Banking</span>
-                <span class="skill">Reinsurance</span>
-                <span class="skill">Superannuation</span>
-                <span class="skill">Insurance</span>
-                <span class="skill">Telecom</span>
-                <span class="skill">Healthcare</span>
-            </div>
-        </section>
-        
         <section id="accomplishments">
             <h2>Accomplishments</h2>
             <ul class="accomplishments-list">
@@ -291,6 +317,18 @@
                 <li>Helped customer to migrate 200+ application from On-prem to AWS Cloud.</li>
                 <li>Transformed Customer Development Methodology to Agile which help Time to Market to 6 weeks from 3+ months.</li>
             </ul>
+        </section>
+        
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="project">
+                <h3>F1toF12 Projects</h3>
+                <p>A collection of innovative software solutions focusing on automation and productivity enhancement. Building tools that streamline workflows and improve efficiency.</p>
+            </div>
+            <div class="project">
+                <h3>Business Development Platform</h3>
+                <p>Developing recruitment and business development solutions that connect talent with opportunities. Leveraging technology to optimize the hiring process.</p>
+            </div>
         </section>
         
         <section id="certifications">
@@ -339,15 +377,26 @@
         
         <section id="awards">
             <h2>Awards</h2>
-            <div class="award-item">
-                <h3>Innovation Excellence Award</h3>
-                <div class="date">2024</div>
-                <p>Recognized for outstanding contributions to software innovation and technical leadership.</p>
-            </div>
-            <div class="award-item">
-                <h3>Technical Excellence Recognition</h3>
-                <div class="date">2023</div>
-                <p>Awarded for exceptional performance in delivering high-quality software solutions.</p>
+            <ul class="accomplishments-list">
+                <li>Received multiple "Trust and Respect" awards for my contribution to the "Digital Solutions" project</li>
+                <li>Received "Hats-off" award for my contribution to the "Reinsurance" project</li>
+                <li>Received multiple "Partnership" & "Influencing" awards for my contribution to the "Reinsurance" project</li>
+                <li>Received "Unstoppable" award for my contribution to the "Transact ODS Integration" project</li>
+                <li>Received "Strategic thinking" award for my contribution to the "Transact ODS Integration" project</li>
+                <li>Received 10/10 award for my role "Onsite-coordinator"</li>
+                <li>Received the A-Team award for the quarter for our contribution towards the SWIFT audit</li>
+            </ul>
+        </section>
+        
+        <section id="domain">
+            <h2>Domain Experience</h2>
+            <div class="skills">
+                <span class="skill">Banking</span>
+                <span class="skill">Reinsurance</span>
+                <span class="skill">Superannuation</span>
+                <span class="skill">Insurance</span>
+                <span class="skill">Telecom</span>
+                <span class="skill">Healthcare</span>
             </div>
         </section>
         
