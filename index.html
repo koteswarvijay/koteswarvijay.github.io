@@ -21,8 +21,9 @@
         nav::-webkit-scrollbar-thumb { background: #667eea; border-radius: 3px; }
         nav a { color: #e0e0e0; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: all 0.3s; padding: 0.5rem 1rem; border-radius: 4px; white-space: nowrap; }
         nav a:hover { color: #667eea; background: rgba(102, 126, 234, 0.1); }
-        .about-photo { width: 200px; height: 200px; border-radius: 8px; float: left; margin: 0 2rem 1rem 0; object-fit: cover; border: 3px solid #667eea; }
-        section { padding: 2rem; border-bottom: 1px solid #222; max-width: 1200px; margin: 0 auto; scroll-margin-top: 80px; }
+
+        section { padding: 2rem; border-bottom: 1px solid #222; max-width: 1200px; margin: 0 auto; scroll-margin-top: 80px; opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        section.visible { opacity: 1; transform: translateY(0); }
         section:last-child { border-bottom: none; }
         h2 { color: #fff; margin-bottom: 1rem; font-size: 1.8rem; border-left: 4px solid #667eea; padding-left: 1rem; }
         .skills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
@@ -36,15 +37,7 @@
         .contact-links a { color: #667eea; text-decoration: none; font-weight: 500; }
         .contact-links a:hover { text-decoration: underline; }
         footer { background: #0a0a0a; color: white; text-align: center; padding: 1.5rem; }
-        .experience-item, .cert-item, .award-item { background: #111; padding: 1.5rem; margin-bottom: 1rem; border-radius: 8px; border-left: 4px solid #667eea; }
-        .experience-item h3, .cert-item h3, .award-item h3 { color: #fff; margin-bottom: 0.5rem; }
-        .experience-item .date, .cert-item .date, .award-item .date { color: #888; font-size: 0.9rem; margin-bottom: 0.5rem; }
-        .timeline { padding: 2rem 0; }
-        .timeline-item { display: grid; grid-template-columns: 200px 1fr; gap: 2rem; padding: 1.5rem 0; border-bottom: 1px solid #333; }
-        .timeline-item:last-child { border-bottom: none; }
-        .timeline-item .date { color: #667eea; font-size: 0.9rem; font-weight: 600; }
-        .timeline-item .content h3 { color: #fff; font-size: 1.2rem; margin-bottom: 0.3rem; }
-        .timeline-item .content .company { color: #888; font-size: 0.95rem; }
+
         .accomplishments-list { list-style: none; }
         .accomplishments-list li { background: #111; padding: 1rem 1.5rem; margin-bottom: 0.8rem; border-radius: 8px; border-left: 4px solid #764ba2; position: relative; padding-left: 2.5rem; }
         .accomplishments-list li:before { content: "★"; position: absolute; left: 1rem; color: #764ba2; font-weight: bold; font-size: 1.2rem; }
@@ -61,9 +54,7 @@
             .header-text h1 { font-size: 1.2rem; }
             .header-text p { font-size: 0.8rem; }
             section { padding: 1.5rem; } 
-            .skills-grid { grid-template-columns: 1fr; gap: 1rem; } 
-            .about-photo { float: none; margin: 0 auto 1rem; display: block; }
-            .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+            .skills-grid { grid-template-columns: 1fr; gap: 1rem; }
         }
     </style>
 </head>
@@ -79,224 +70,61 @@
                     </div>
                 </div>
                 <nav>
-                    <a href="#about">About Me</a>
-                    <a href="#experience">Experience</a>
-                    <a href="#skills">Skills</a>
-                    <a href="#accomplishments">Accomplishments</a>
+                    <a href="#about">About</a>
                     <a href="#projects">Projects</a>
-                    <a href="#certifications">Certifications</a>
-                    <a href="#education">Education</a>
-                    <a href="#awards">Awards</a>
-                    <a href="#domain">Domain</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#accomplishments">Key Achievements</a>
+                    <a href="#contact">Contact</a>
                 </nav>
             </div>
         </header>
         
         <section id="about">
-            <h2>About Me</h2>
-            <img src="Vijay-Pic-2025.JPG" alt="Vijay Koteswar" class="about-photo">
-            <p>Vijay Kumar Koteswar is a Director in Technology Delivery at Epsilon, based in Bengaluru, with over 20+ years of experience leading large-scale technology programs for strategic customers. He brings strong delivery leadership with a deep focus on data, analytics, and AI enablement, helping organizations translate business priorities into scalable technology solutions and measurable outcomes.</p>
-            <p style="margin-top: 1rem;">In my role, I lead end-to-end technology delivery across complex, multi-stream programs spanning data engineering, cloud migrations, analytics platforms, and AI-enabled solutions. I am accountable for delivery governance, risk management, and driving predictable outcomes across build, integration, and run phases. My recent focus includes leading large-scale data and platform migrations from on-premises environments to cloud ecosystems on AWS and Azure.</p>
-            <p style="margin-top: 1rem;">I work closely with product, architecture, and engineering teams to ensure delivery plans are technically sound, operationally scalable, and aligned with business commitments, while continuously improving delivery maturity, quality, and speed.</p>
-            <p style="margin-top: 1rem;">At Epsilon, I have played a key role in strengthening technology delivery capabilities by helping establish the Experience Center, designed to support learning and development through hands-on, platform-led training environments. In parallel, I have supported pre-sales efforts by leading the design and development of multiple demo sites and driving integrations with third-party platforms such as LoyLogic and Medallia.</p>
-            <p style="margin-top: 1rem;">Prior to Epsilon, I held senior delivery and technology leadership roles at organizations such as LTIMindtree, serving as Technical Manager, Program Manager, Delivery Manager, and Delivery Director. I hold a Bachelor's degree in Computer Science and have pursued leadership development at IIM-Indore, focused on Strategy and Leadership.</p>
+            <h2>About</h2>
+            <p>Director in Technology Delivery with 20+ years leading large-scale cloud migrations, data engineering, and AI-enabled solutions. Specialized in AWS/Azure platforms, delivering enterprise data platforms and automation solutions that drive measurable business outcomes.</p>
         </section>
-        
-        <section id="experience">
-            <h2>Career Progression</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="date">April 2025 - Current</div>
-                    <div class="content">
-                        <h3>Director - Technology Delivery</h3>
-                        <div class="company">Epsilon, Bengaluru, India</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="date">January 2025 - March 2025</div>
-                    <div class="content">
-                        <h3>Consultant</h3>
-                        <div class="company">Alfahive Pvt Ltd, Bengaluru, India</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="date">July 2023 - November 2024</div>
-                    <div class="content">
-                        <h3>Senior Director</h3>
-                        <div class="company">WinWire Technologies, Bengaluru, India</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="date">September 2019 - June 2023</div>
-                    <div class="content">
-                        <h3>Senior Director - Project Management</h3>
-                        <div class="company">LTIMindtree Ltd., Bengaluru, India</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="date">November 2017 - August 2019</div>
-                    <div class="content">
-                        <h3>Delivery Manager</h3>
-                        <div class="company">Mindtree Ltd., Sydney, Australia</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="date">May 2015 - October 2017</div>
-                    <div class="content">
-                        <h3>Senior Project Manager</h3>
-                        <div class="company">Mindtree Ltd., Bengaluru, India</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="date">October 2013 - December 2015</div>
-                    <div class="content">
-                        <h3>Technical Manager</h3>
-                        <div class="company">Mindtree Ltd., Bengaluru, India</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="date">January 2008 - June 2013</div>
-                    <div class="content">
-                        <h3>Technical Lead</h3>
-                        <div class="company">Mindtree Ltd., Bengaluru, India</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="date">June 2006 - October 2007</div>
-                    <div class="content">
-                        <h3>Senior Software Engineer</h3>
-                        <div class="company">Wipro Technologies, Hyderabad, India</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="date">October 2005 - May 2006</div>
-                    <div class="content">
-                        <h3>Technical Analyst</h3>
-                        <div class="company">IBM, Bengaluru, India</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="date">April 2004 - September 2005</div>
-                    <div class="content">
-                        <h3>Technical Analyst</h3>
-                        <div class="company">HTMT, Bengaluru, India</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="date">July 2003 - April 2004</div>
-                    <div class="content">
-                        <h3>Software Developer</h3>
-                        <div class="company">ECI, Hyderabad, India</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="date">January 2000 - July 2003</div>
-                    <div class="content">
-                        <h3>Programmer</h3>
-                        <div class="company">Image Infosys, Hyderabad, India</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
         
         <section id="skills">
-            <h2>Skill Set</h2>
+            <h2>Technical Skills</h2>
             <div class="skills-grid">
                 <div>
                     <div class="skill-category">
-                        <h3>Cloud Technologies</h3>
+                        <h3>Cloud & Infrastructure</h3>
                         <div class="skills">
-                            <span class="skill">Azure</span>
                             <span class="skill">AWS</span>
+                            <span class="skill">Azure</span>
+                            <span class="skill">Databricks</span>
+                            <span class="skill">Azure DevOps</span>
                         </div>
                     </div>
                     <div class="skill-category">
-                        <h3>Programming Languages</h3>
+                        <h3>Programming</h3>
                         <div class="skills">
-                            <span class="skill">C</span>
-                            <span class="skill">C++</span>
                             <span class="skill">Python</span>
                             <span class="skill">Java</span>
-                            <span class="skill">J2EE</span>
-                            <span class="skill">.Net</span>
-                            <span class="skill">Microservices</span>
-                            <span class="skill">Data Structures</span>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3>UI Technologies</h3>
-                        <div class="skills">
-                            <span class="skill">HTML</span>
-                            <span class="skill">CSS</span>
-                            <span class="skill">JavaScript</span>
-                            <span class="skill">React JS</span>
+                            <span class="skill">Node.js</span>
                             <span class="skill">TypeScript</span>
-                            <span class="skill">Node JS</span>
+                            <span class="skill">React</span>
                         </div>
                     </div>
+                </div>
+                <div>
                     <div class="skill-category">
                         <h3>Data & Analytics</h3>
                         <div class="skills">
-                            <span class="skill">Data Analytics</span>
                             <span class="skill">Power BI</span>
-                            <span class="skill">MSFT Fabric</span>
+                            <span class="skill">Microsoft Fabric</span>
+                            <span class="skill">SQL</span>
+                            <span class="skill">DynamoDB</span>
                             <span class="skill">Data Lake</span>
                         </div>
                     </div>
                     <div class="skill-category">
-                        <h3>Databases</h3>
+                        <h3>AI & Automation</h3>
                         <div class="skills">
-                            <span class="skill">SQL</span>
-                            <span class="skill">Oracle</span>
-                            <span class="skill">DynamoDB</span>
-                            <span class="skill">MySQL</span>
-                            <span class="skill">Databricks</span>
-                            <span class="skill">Access</span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="skill-category">
-                        <h3>Tools</h3>
-                        <div class="skills">
-                            <span class="skill">Jira</span>
-                            <span class="skill">VersionOne</span>
-                            <span class="skill">Confluence</span>
-                            <span class="skill">Azure DevOps</span>
-                            <span class="skill">MPP</span>
-                            <span class="skill">Splunk</span>
-                            <span class="skill">App Dynamics</span>
-                            <span class="skill">Service Now</span>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3>Operating Systems</h3>
-                        <div class="skills">
-                            <span class="skill">Windows</span>
-                            <span class="skill">Linux</span>
-                            <span class="skill">UNIX</span>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3>AI</h3>
-                        <div class="skills">
-                            <span class="skill">ChatGPT</span>
                             <span class="skill">OpenAI</span>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3>Leadership & Management</h3>
-                        <div class="skills">
-                            <span class="skill">Key Performance Indicators</span>
-                            <span class="skill">Stakeholder Management</span>
-                            <span class="skill">Project Management</span>
-                            <span class="skill">Strategic Planning</span>
-                            <span class="skill">Collaborative Leadership</span>
-                            <span class="skill">Business Development & Sales</span>
-                            <span class="skill">Budget Management</span>
-                            <span class="skill">Forecast</span>
-                            <span class="skill">Organizational Development</span>
-                            <span class="skill">Market Understanding</span>
+                            <span class="skill">Microservices</span>
                         </div>
                     </div>
                 </div>
@@ -304,18 +132,13 @@
         </section>
         
         <section id="accomplishments">
-            <h2>Accomplishments</h2>
+            <h2>Key Achievements</h2>
             <ul class="accomplishments-list">
-                <li>Achieved 2M+ cost savings per year by implementing Automation.</li>
-                <li>Leveraged Open AI in multiple projects to fast track the Development timelines and improve productivity.</li>
-                <li>Accomplished various Data Migrations: Hadoop to Azure Data Bricks, Oracle to Synapse, Tableau to Power BI for multiple customers.</li>
-                <li>Helped one of the US based Health Care customers to implement Enterprise Data Platform which helped to consolidate different Business Units into 1 common platform with a savings of more than 60K USD Cloud cost per month.</li>
-                <li>Handled account team of 220+ staff members. Grew the account from 150 to 220+ staff members by working on multiple initiatives.</li>
-                <li>Stabilized critical projects in the organizations successfully to a stable state.</li>
-                <li>Drive key initiatives such as: Code generation accelerator to reduce overall Development timelines. Helped to migrated 200+ Java bases applications to Node JS.</li>
-                <li>Doubled the account revenue in 6 months in proposing various initiatives.</li>
-                <li>Helped customer to migrate 200+ application from On-prem to AWS Cloud.</li>
-                <li>Transformed Customer Development Methodology to Agile which help Time to Market to 6 weeks from 3+ months.</li>
+                <li>Achieved $2M+ annual cost savings through automation and cloud optimization</li>
+                <li>Led enterprise data platform migration consolidating multiple business units, saving $60K/month in cloud costs</li>
+                <li>Migrated 200+ applications from on-premises to AWS Cloud</li>
+                <li>Executed large-scale data migrations: Hadoop → Azure Databricks, Oracle → Synapse, Tableau → Power BI</li>
+                <li>Built code generation accelerator that migrated 200+ Java applications to Node.js, reducing development timelines</li>
             </ul>
         </section>
         
@@ -331,74 +154,7 @@
             </div>
         </section>
         
-        <section id="certifications">
-            <h2>Certifications</h2>
-            <div class="cert-grid">
-                <div class="cert-item">
-                    <h3>Azure Data Factory</h3>
-                    <div class="date">July 2024</div>
-                </div>
-                <div class="cert-item">
-                    <h3>Microsoft Fabric</h3>
-                    <div class="date">January 2024 - LinkedIn</div>
-                </div>
-                <div class="cert-item">
-                    <h3>Presentation Skills</h3>
-                    <div class="date">May 2021 - Dale Carnegie</div>
-                </div>
-                <div class="cert-item">
-                    <h3>201 Agile - Mindtree Certified</h3>
-                    <div class="date">January 2019</div>
-                </div>
-                <div class="cert-item">
-                    <h3>Getting Things Done</h3>
-                    <div class="date">September 2018 - Dale Carnegie</div>
-                </div>
-                <div class="cert-item">
-                    <h3>Mindtree Certified Project Manager (MCPM)</h3>
-                    <div class="date">May 2017</div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="education">
-            <h2>Education</h2>
-            <div class="experience-item">
-                <h3>Executive Program: Strategy & Leadership</h3>
-                <div class="date">April 2024 - Current</div>
-                <p>Indian Institute of Management (IIM) - Indore</p>
-            </div>
-            <div class="experience-item">
-                <h3>Bachelor of Science: Computer Science, Maths, Physics</h3>
-                <div class="date">August 1996 - July 1999</div>
-                <p>St. Patricks Degree College - Hyderabad, India</p>
-            </div>
-        </section>
-        
-        <section id="awards">
-            <h2>Awards</h2>
-            <ul class="accomplishments-list">
-                <li>Received multiple "Trust and Respect" awards for my contribution to the "Digital Solutions" project</li>
-                <li>Received "Hats-off" award for my contribution to the "Reinsurance" project</li>
-                <li>Received multiple "Partnership" & "Influencing" awards for my contribution to the "Reinsurance" project</li>
-                <li>Received "Unstoppable" award for my contribution to the "Transact ODS Integration" project</li>
-                <li>Received "Strategic thinking" award for my contribution to the "Transact ODS Integration" project</li>
-                <li>Received 10/10 award for my role "Onsite-coordinator"</li>
-                <li>Received the A-Team award for the quarter for our contribution towards the SWIFT audit</li>
-            </ul>
-        </section>
-        
-        <section id="domain">
-            <h2>Domain Experience</h2>
-            <div class="skills">
-                <span class="skill">Banking</span>
-                <span class="skill">Reinsurance</span>
-                <span class="skill">Superannuation</span>
-                <span class="skill">Insurance</span>
-                <span class="skill">Telecom</span>
-                <span class="skill">Healthcare</span>
-            </div>
-        </section>
+
         
         <section id="contact">
             <h2>Get In Touch</h2>
@@ -414,5 +170,16 @@
             <p>&copy; 2024 Vijay Koteswar. All rights reserved.</p>
         </footer>
     </div>
+    <script>
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        sections.forEach(section => observer.observe(section));
+    </script>
 </body>
 </html>
