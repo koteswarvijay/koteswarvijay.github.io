@@ -1,0 +1,43 @@
+/* ── Sections ─────────────────────────────────────────────────── */
+section { padding: 2rem; border-bottom: 1px solid #222; max-width: 1200px; margin: 0 auto; scroll-margin-top: 80px; opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+section.visible { opacity: 1; transform: translateY(0); }
+section:last-child { border-bottom: none; }
+h2 { color: #fff; margin-bottom: 1rem; font-size: 1.8rem; border-left: 4px solid #667eea; padding-left: 1rem; }
+
+/* ── Skills ───────────────────────────────────────────────────── */
+.skills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+.skill { background: #667eea; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; }
+.skill-category { margin-bottom: 1.5rem; }
+.skill-category h3 { color: #667eea; font-size: 1.1rem; margin-bottom: 0.8rem; font-weight: 600; }
+.skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 1rem; }
+
+/* ── Projects (summary cards on home page) ────────────────────── */
+.project { background: #111; padding: 1.5rem; margin-bottom: 1rem; border-radius: 8px; border-left: 4px solid #764ba2; }
+.project h3 { color: #fff; margin-bottom: 0.5rem; }
+.project a { color: #667eea; text-decoration: none; font-weight: 500; }
+.project a:hover { text-decoration: underline; }
+.view-all-btn { display: inline-block; margin-top: 1.5rem; padding: 0.6rem 1.5rem; background: transparent; border: 2px solid #667eea; color: #667eea; border-radius: 6px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.3s; }
+.view-all-btn:hover { background: #667eea; color: #fff; text-decoration: none; }
+
+/* ── Contact ──────────────────────────────────────────────────── */
+.contact-links { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem; }
+.contact-links a { color: #667eea; text-decoration: none; font-weight: 500; }
+.contact-links a:hover { text-decoration: underline; }
+
+/* ── Accomplishments ──────────────────────────────────────────── */
+.accomplishments-list { list-style: none; }
+.accomplishments-list li { background: #111; padding: 1rem 1.5rem; margin-bottom: 0.8rem; border-radius: 8px; border-left: 4px solid #764ba2; position: relative; padding-left: 2.5rem; }
+.accomplishments-list li:before { content: "★"; position: absolute; left: 1rem; color: #764ba2; font-weight: bold; font-size: 1.2rem; }
+
+/* ── Certifications ───────────────────────────────────────────── */
+.cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.cert-item { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 1px solid #667eea; border-left: none; transition: transform 0.3s, box-shadow 0.3s; }
+.cert-item:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3); }
+.cert-item h3 { font-size: 1.1rem; }
+.cert-item .date { color: #667eea; font-weight: 500; }
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    section { padding: 1.5rem; }
+    .skills-grid { grid-template-columns: 1fr; gap: 1rem; }
+}

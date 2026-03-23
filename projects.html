@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Vijay Koteswar</title>
+    <link rel="stylesheet" href="shared.css">
+    <style>
+        .page-hero { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem 1rem; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .page-hero.visible { opacity: 1; transform: translateY(0); }
+        .page-hero h2 { color: #fff; font-size: 2rem; border-left: 4px solid #667eea; padding-left: 1rem; margin-bottom: 0.5rem; }
+        .page-hero p { color: #aaa; font-size: 1rem; padding-left: 1.25rem; }
+
+        .filter-bar { max-width: 1200px; margin: 1.5rem auto 0; padding: 0 2rem; display: flex; gap: 0.75rem; flex-wrap: wrap; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s; }
+        .filter-bar.visible { opacity: 1; transform: translateY(0); }
+        .filter-btn { background: transparent; border: 1px solid #333; color: #aaa; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+        .filter-btn:hover, .filter-btn.active { background: #667eea; border-color: #667eea; color: #fff; }
+
+        .projects-grid { max-width: 1200px; margin: 2rem auto; padding: 0 2rem 4rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
+
+        .project-card { background: #111; border-radius: 12px; border: 1px solid #222; border-top: 3px solid #667eea; padding: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem; opacity: 0; transform: translateY(30px); transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s, border-color 0.3s; }
+        .project-card.visible { opacity: 1; transform: translateY(0); }
+        .project-card:hover { box-shadow: 0 8px 32px rgba(102, 126, 234, 0.15); border-color: #667eea; }
+        .project-card.personal { border-top-color: #764ba2; }
+        .project-card.personal:hover { box-shadow: 0 8px 32px rgba(118, 75, 162, 0.2); border-color: #764ba2; }
+
+        .card-meta { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+        .card-year { font-size: 0.8rem; color: #667eea; font-weight: 600; background: rgba(102,126,234,0.1); padding: 0.2rem 0.6rem; border-radius: 20px; }
+        .card-type { font-size: 0.75rem; color: #aaa; background: #1a1a1a; padding: 0.2rem 0.6rem; border-radius: 20px; }
+        .project-card h3 { color: #fff; font-size: 1.15rem; line-height: 1.3; }
+        .project-card .org { color: #667eea; font-size: 0.85rem; font-weight: 600; margin-top: -0.25rem; }
+        .project-card p { color: #bbb; font-size: 0.92rem; flex: 1; }
+
+        .impact-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+        .impact-list li { font-size: 0.85rem; color: #ccc; padding-left: 1.2rem; position: relative; }
+        .impact-list li:before { content: "▸"; position: absolute; left: 0; color: #667eea; }
+
+        .card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; padding-top: 0.5rem; }
+        .tag { background: rgba(102, 126, 234, 0.12); color: #667eea; padding: 0.25rem 0.6rem; border-radius: 12px; font-size: 0.78rem; font-weight: 500; }
+        .project-card.personal .tag { background: rgba(118, 75, 162, 0.15); color: #a78bfa; }
+
+        .card-link { color: #667eea; text-decoration: none; font-weight: 600; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.25rem; transition: gap 0.2s; }
+        .card-link:hover { text-decoration: underline; gap: 0.5rem; }
+
+        @media (max-width: 768px) {
+            .projects-grid { grid-template-columns: 1fr; padding: 0 1.5rem 3rem; }
+            .page-hero { padding: 2rem 1.5rem 0.5rem; }
+            .filter-bar { padding: 0 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content"></div>
+        </header>
+
+        <div class="page-hero" id="hero">
+            <h2>Projects</h2>
+            <p>Enterprise initiatives, AI integrations, and personal products — 20+ years of delivering impactful solutions.</p>
+        </div>
+
+        <div class="filter-bar" id="filterBar">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="ai">AI &amp; Automation</button>
+            <button class="filter-btn" data-filter="cloud">Cloud Migration</button>
+            <button class="filter-btn" data-filter="data">Data &amp; Analytics</button>
+            <button class="filter-btn" data-filter="delivery">Enterprise Delivery</button>
+            <button class="filter-btn" data-filter="personal">Personal Projects</button>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid"></div>
+
+        <footer>
+            <p>&copy; 2026 Vijay Koteswar &mdash; <a href="index.html">Back to Portfolio</a></p>
+        </footer>
+    </div>
+
+    <script src="shared.js"></script>
+    <script src="projects.data.js"></script>
+    <script>
+        // Render cards from data
+        const grid = document.getElementById('projectsGrid');
+        grid.innerHTML = PROJECTS.map(p => `
+            <div class="project-card${p.personal ? ' personal' : ''}" data-category="${p.category}">
+                <div class="card-meta">
+                    <span class="card-year">${p.year}</span>
+                    <span class="card-type">${p.type}</span>
+                </div>
+                <h3>${p.title}</h3>
+                <div class="org">${p.org}</div>
+                <p>${p.description}</p>
+                <ul class="impact-list">
+                    ${p.impact.map(i => `<li>${i}</li>`).join('')}
+                </ul>
+                <div class="card-tags">
+                    ${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                </div>
+                ${p.link ? `<a class="card-link" href="${p.link.href}" target="_blank">${p.link.label}</a>` : ''}
+            </div>`).join('');
+
+        // Animate hero and filter bar on load
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => document.getElementById('hero').classList.add('visible'), 50);
+            setTimeout(() => document.getElementById('filterBar').classList.add('visible'), 150);
+        });
+
+        // Animate project cards as they scroll into view
+        revealOnScroll('.project-card', { threshold: 0.08, stagger: 60 });
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.project-card');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                cards.forEach(card => {
+                    card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
