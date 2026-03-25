@@ -7,14 +7,15 @@
     const navItems = [
         { label: 'About',            href: onIndex ? '#about' : 'index.html' },
         { label: 'Projects',         href: 'projects.html' },
-        { label: 'Skills',           href: `${p}#skills` },
+        { label: 'Skills',           href: 'skills.html' },
         { label: 'Key Achievements', href: `${p}#accomplishments` },
         { label: 'Contact',          href: `${p}#contact` }
     ];
 
     const isActive = (href) =>
         page === 'projects.html' ? href === 'projects.html'
-                                 : onIndex && (href === '#about' || href === 'index.html');
+        : page === 'skills.html' ? href === 'skills.html'
+        : onIndex && (href === '#about' || href === 'index.html');
 
     const navHTML = navItems.map(({ label, href, cls }) => {
         const classes = [cls, isActive(href) && 'active'].filter(Boolean).join(' ');

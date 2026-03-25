@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills | Vijay Koteswar</title>
+    <link rel="stylesheet" href="shared.css">
+    <style>
+        .page-hero { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem 1rem; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .page-hero.visible { opacity: 1; transform: translateY(0); }
+        .page-hero h2 { color: #fff; font-size: 2rem; border-left: 4px solid #667eea; padding-left: 1rem; margin-bottom: 0.5rem; }
+        .page-hero p { color: #aaa; font-size: 1rem; padding-left: 1.25rem; }
+
+        .filter-bar { max-width: 1200px; margin: 1.5rem auto 0; padding: 0 2rem; display: flex; gap: 0.75rem; flex-wrap: wrap; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s; }
+        .filter-bar.visible { opacity: 1; transform: translateY(0); }
+        .filter-btn { background: transparent; border: 1px solid #333; color: #aaa; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+        .filter-btn:hover, .filter-btn.active { background: #667eea; border-color: #667eea; color: #fff; }
+
+        /* ── Skills grid ── */
+        .skills-grid { max-width: 1200px; margin: 2rem auto; padding: 0 2rem 4rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+
+        .skill-card { background: #111; border: 1px solid #222; border-radius: 12px; padding: 1.25rem 1.5rem; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s; }
+        .skill-card.visible { opacity: 1; transform: translateY(0); }
+        .skill-card:hover { box-shadow: 0 4px 24px rgba(102,126,234,0.12); border-color: #333; }
+
+        .skill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+        .skill-name { color: #fff; font-size: 0.95rem; font-weight: 700; }
+        .skill-years { font-size: 0.78rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 20px; white-space: nowrap; }
+
+        /* category colour tokens */
+        .skill-card[data-cat="ai"]      .skill-years { background: rgba(102,126,234,0.15); color: #667eea; }
+        .skill-card[data-cat="cloud"]   .skill-years { background: rgba(255,112,67,0.15);  color: #ff7043; }
+        .skill-card[data-cat="lang"]    .skill-years { background: rgba(250,176,5,0.15);   color: #f0a500; }
+        .skill-card[data-cat="data"]    .skill-years { background: rgba(0,188,212,0.15);   color: #26c6da; }
+        .skill-card[data-cat="pm"]      .skill-years { background: rgba(118,75,162,0.15);  color: #a78bfa; }
+
+        /* bar track */
+        .bar-track { background: #1e1e1e; border-radius: 4px; height: 6px; overflow: hidden; }
+        .bar-fill   { height: 100%; border-radius: 4px; transition: width 1s ease 0.3s; width: 0; }
+        .skill-card[data-cat="ai"]    .bar-fill { background: linear-gradient(90deg,#667eea,#764ba2); }
+        .skill-card[data-cat="cloud"] .bar-fill { background: linear-gradient(90deg,#ff7043,#ffa726); }
+        .skill-card[data-cat="lang"]  .bar-fill { background: linear-gradient(90deg,#f0a500,#ffe082); }
+        .skill-card[data-cat="data"]  .bar-fill { background: linear-gradient(90deg,#26c6da,#80deea); }
+        .skill-card[data-cat="pm"]    .bar-fill { background: linear-gradient(90deg,#764ba2,#a78bfa); }
+
+        .skill-context { margin-top: 0.6rem; font-size: 0.78rem; color: #777; line-height: 1.4; }
+
+        @media (max-width: 768px) {
+            .skills-grid { grid-template-columns: 1fr; padding: 0 1rem 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content"></div>
+        </header>
+
+        <div class="page-hero" id="hero">
+            <h2>Skills &amp; Experience</h2>
+            <p>20+ years across programming, cloud, data, AI, and program management — with time-in-practice for each skill.</p>
+        </div>
+
+        <div class="filter-bar" id="filterBar">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="pm">Project Management</button>
+            <button class="filter-btn" data-filter="lang">Programming</button>
+            <button class="filter-btn" data-filter="cloud">Cloud &amp; DevOps</button>
+            <button class="filter-btn" data-filter="data">Data &amp; Analytics</button>
+            <button class="filter-btn" data-filter="ai">AI &amp; Automation</button>
+        </div>
+
+        <div class="skills-grid" id="skillsGrid"></div>
+
+        <footer>
+            <p>&copy; 2026 Vijay Koteswar &mdash; <a href="index.html">Back to Portfolio</a></p>
+        </footer>
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+        // max bar = 25 years (career start 2000)
+        const MAX_YRS = 25;
+
+        const SKILLS = [
+            // ── Project Management ────────────────────────────────────
+            { cat:'pm', name:'SDLC / Software Delivery',         years:22, context:'Spanning the full career — from programmer to delivery manager across 20+ large-scale programs.' },
+            { cat:'pm', name:'Agile / Scrum',                    years:17, context:'First adopted in 2009 (Brussels onsite). Led Scrum teams as Technical Manager and Program Manager across Mindtree, LTIMindtree and Epsilon.' },
+            { cat:'pm', name:'Program & Project Management',     years:12, context:'Program Manager and above since 2013 — managing teams of 50–80+, 4 portfolios, and 200+ application migrations.' },
+            { cat:'pm', name:'Stakeholder & Client Management',  years:12, context:'Primary escalation point at Mindtree (Sydney), LTIMindtree and WinWire; drove customer feedback from 4.5 → 6.3 / 7.' },
+            { cat:'pm', name:'Risk Management (RAID)',           years: 9, context:'Formal RAID tracking introduced as Delivery Manager in Sydney (2017); carried through all subsequent program roles.' },
+            { cat:'pm', name:'Team Leadership (50+ members)',    years:12, context:'Led cross-functional teams across multiple geographies including Brussels, Sydney, London and Bengaluru.' },
+
+            // ── Programming Languages ─────────────────────────────────
+            { cat:'lang', name:'C / C++',        years:13, context:'Core language from Image Infosys (2000) through Wipro Telecom, Mindtree London & Brussels until 2013.' },
+            { cat:'lang', name:'Java / J2EE',    years:10, context:'Primary enterprise stack from 2013 at Mindtree through LTIMindtree migration programs (2023).' },
+            { cat:'lang', name:'Python',          years: 5, context:'Adopted from 2021 (Mindtree) and used continuously through LTIMindtree, WinWire, and Epsilon for automation & AI workflows.' },
+            { cat:'lang', name:'.Net',            years: 4, context:'Used as Technical Manager (Mindtree 2021–22) and again at Epsilon (2025–present) for product and demo-site development.' },
+            { cat:'lang', name:'Angular',         years: 3, context:'Used in Mindtree (2021–22) and LTIMindtree (2022–23) migration and product development projects.' },
+            { cat:'lang', name:'Node.js',         years: 2, context:'Primary target language for the LTIMindtree code-generation accelerator (200+ app migration, 2022–23).' },
+            { cat:'lang', name:'React JS',        years: 1, context:'Building pre-sales demo sites and internal CMS at Epsilon (Apr 2025 – present).' },
+
+            // ── Cloud & DevOps ────────────────────────────────────────
+            { cat:'cloud', name:'AWS',            years: 5, context:'Used across LTIMindtree (200+ app migration), Epsilon (Lambda, Cognito) and personal projects.' },
+            { cat:'cloud', name:'CI/CD',          years: 5, context:'Designed and implemented CI/CD roadmap at Mindtree (2021) and maintained pipelines across all subsequent roles.' },
+            { cat:'cloud', name:'Azure',          years: 2, context:'Core platform for the WinWire Enterprise Data Platform (Synapse, ADF, Microsoft Fabric, 2023–24).' },
+            { cat:'cloud', name:'Databricks',     years: 2, context:'Used for the Enterprise Data Platform consolidation at WinWire (2023–24).' },
+            { cat:'cloud', name:'Linux / Shell',  years: 8, context:'System-level scripting at ECI, Wipro, Mindtree Brussels and as part of build & deployment ownership.' },
+
+            // ── Data & Analytics ──────────────────────────────────────
+            { cat:'data', name:'SQL / Databases',          years:15, context:'Queried databases from IBM Technical Analyst role (2005) onwards; formal data work at WinWire with SQL Server.' },
+            { cat:'data', name:'AppDynamics',              years: 2, context:'Built custom monitoring dashboards to eliminate Sev1 incidents (Mindtree, 2019–21).' },
+            { cat:'data', name:'Splunk',                   years: 2, context:'Used alongside AppDynamics for log analysis and observability at Mindtree (2019–21).' },
+            { cat:'data', name:'Power BI',                 years: 2, context:'Reporting and analytics dashboards for the Enterprise Data Platform at WinWire (2023–24).' },
+            { cat:'data', name:'Azure Data Factory',       years: 2, context:'Data pipeline orchestration for the WinWire Enterprise Data Platform (2023–24).' },
+            { cat:'data', name:'Kibana',                   years: 1, context:'Log analytics and operational dashboards at Epsilon (2025–present).' },
+            { cat:'data', name:'Microsoft Fabric',         years: 1, context:'Evaluated and adopted as part of the WinWire unified data platform (2023–24).' },
+
+            // ── AI & Automation ───────────────────────────────────────
+            { cat:'ai', name:'Generative AI / LLMs',  years: 3, context:'Hands-on from 2023 — certified in Generative AI (Cloud & AWS); integrated Claude and evaluated Amazon Q in production.' },
+            { cat:'ai', name:'Claude AI',             years: 1, context:'Integrated Claude services into the Epsilon developer framework; built automated workflow pipelines (2025–present).' },
+            { cat:'ai', name:'n8n (Workflow Automation)', years: 1, context:'Used at Epsilon to automate User Story creation, product configuration and pre-sales workflows.' },
+            { cat:'ai', name:'Amazon Q',              years: 1, context:'Conducted internal POC at Epsilon for day-to-day developer productivity; ran team enablement sessions.' },
+        ];
+
+        const grid = document.getElementById('skillsGrid');
+        grid.innerHTML = SKILLS.map(s => {
+            const pct = Math.round((s.years / MAX_YRS) * 100);
+            const label = s.years === 1 ? '1 yr' : `${s.years} yrs`;
+            return `
+            <div class="skill-card" data-cat="${s.cat}" data-pct="${pct}">
+                <div class="skill-header">
+                    <span class="skill-name">${s.name}</span>
+                    <span class="skill-years">${label}</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+                <p class="skill-context">${s.context}</p>
+            </div>`;
+        }).join('');
+
+        // Animate bars when card becomes visible
+        const animateBar = (card) => {
+            const fill = card.querySelector('.bar-fill');
+            const pct  = card.dataset.pct;
+            // small delay so the card fade-in finishes first
+            setTimeout(() => { fill.style.width = pct + '%'; }, 200);
+        };
+
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                animateBar(entry.target);
+                io.unobserve(entry.target);
+            });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.skill-card').forEach(c => io.observe(c));
+
+        // Filter
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => document.getElementById('hero').classList.add('visible'), 50);
+            setTimeout(() => document.getElementById('filterBar').classList.add('visible'), 150);
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const f = btn.dataset.filter;
+                    document.querySelectorAll('.skill-card').forEach(card => {
+                        card.style.display = (f === 'all' || card.dataset.cat === f) ? '' : 'none';
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
